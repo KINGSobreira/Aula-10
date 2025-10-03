@@ -2,108 +2,133 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <title>Aula 10 - tailwindcss</title>
-    <style>
-        @import 'tailwind.css/base';
-        @import 'tailwind.css/components';
-        @import 'tailwind.css/utilities';
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <title>Aula 10 - TailwindCSS</title>
+  <style>
+    .dropdown-menu {
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+      pointer-events: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+      min-width: 150px;
+      z-index: 50;
+    }
 
-        .dropdown-menu {
-            transform: translateY(-10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease-in-out;
-            pointer-events: none;
+    .dropdown:hover .dropdown-menu {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-        }
+    .menu-link {
+      transition: all 0.3s ease;
+    }
 
-        .dropdown:hover .dropdown-menu {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
+    .dropdown:hover .arrow {
+      transform: rotate(180deg);
+    }
 
-        }
-
-        .menu-link {
-            transition: all 0.3s ease;
-
-
-        }
-
-        .dropdown:hover .arrow {
-            transform: rotate(180deg);
-
-        }
-
-        .arrow {
-            transition: transform 0.3s ease;
-        }
-    </style>
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+  </style>
 </head>
 
-<body class="br-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
 
-    <header class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <H1 class="text-2xl font-bold bg-gradient-to-r from-red-600 to-purple-500 
-                    bg-clip-text text-transparent hover:from-purple-500 hover:to-red-600
+  <header class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-red-600 to-purple-500 
+                     bg-clip-text text-transparent hover:from-purple-500 hover:to-red-600
                      transition-all duration-300 cursor-pointer">
-                        Tailwind
-                    </H1>
-                </div>
-                <nav class="flex space-x-8 list-none">
-                    <a href="#" class="menu-link text-gray-800 hover:text-blue-400 px-4 py-2 rounded-md text-sm font-medium
-                      hover:bg-blue-50 transition-colors duration-200">
-                        <i class="ph ph-house hover:text-purple-500 @important"></i>
-                        Início
-                    </a>
-
-                    <div class="flex space-x-8">
-                        <a href="#" class="menu-link dropdown text-gray-800 hover:text-blue-400 px-4 py-2 rounded-md text-sm font-medium
-                      hover:bg-blue-50 transition-colors duration-200">
-                            <i class="ph ph-package"></i>
-                            Serviços
-                            <i class="ph ph-caret-up arrow"></i>
-                            <li class="submenu-link dropdown-menu">
-                                <i class="ph ph-device-mobile"></i>
-                                App Mobile
-                            </li>
-                            <li class="submenu-link dropdown-menu">
-                                <i class="ph ph-desktop"></i>
-                                Sistemas
-                            </li>
-                        </a>
-                    </div>
-                    <div class="flex space-x-8">
-                        <a href="#" class="menu-link dropdown text-gray-800 hover:text-blue-400 px-4 py-2 rounded-md text-sm font-medium
-                      hover:bg-blue-50 transition-colors duration-200">
-                            <i class="ph ph-headset"></i>
-                            Contatos
-                            <i class="ph ph-caret-up arrow"></i>
-                            <li class="submenu-link dropdown-menu">
-                                <i class="ph ph-envelope-simple"></i>
-                                Email
-                            </li>
-                            <li class="submenu-link dropdown-menu">
-                                <i class="ph ph-whatsapp-logo"></i>
-                                Whatsapp
-                            </li>
-                        </a>
-                    </div>
-
-
-                </nav>
-            </div>
+            Tailwind
+          </h1>
         </div>
-    </header>
+
+        <!-- Menu -->
+        <nav class="flex space-x-8">
+          
+          <!-- Início -->
+          <a href="#" class="menu-link flex items-center gap-2 text-gray-800 hover:text-purple-500 
+             px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-50 transition-colors duration-200">
+            <i class="ph ph-house"></i>
+            Início
+          </a>
+
+          <!-- Serviços -->
+          <div class="relative dropdown">
+            <button
+              class="menu-link flex items-center gap-2 text-gray-800 hover:text-purple-500 
+              px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-50 transition-colors duration-200">
+              <i class="ph ph-package"></i>
+              Serviços
+              <i class="ph ph-caret-up arrow"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" class="submenu-link flex items-center gap-2 px-4 py-2 
+                   text-gray-700 hover:bg-blue-100">
+                  <i class="ph ph-device-mobile"></i>
+                  App Mobile
+                </a>
+              </li>
+              <li>
+                <a href="#" class="submenu-link flex items-center gap-2 px-4 py-2 
+                   text-gray-700 hover:bg-blue-100">
+                  <i class="ph ph-desktop"></i>
+                  Sistemas
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contatos -->
+          <div class="relative dropdown">
+            <button
+              class="menu-link flex items-center gap-2 text-gray-800 hover:text-purple-500 
+              px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-50 transition-colors duration-200">
+              <i class="ph ph-headset"></i>
+              Contatos
+              <i class="ph ph-caret-up arrow"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" class="submenu-link flex items-center gap-2 px-4 py-2 
+                   text-gray-700 hover:bg-blue-100">
+                  <i class="ph ph-envelope-simple"></i>
+                  Email
+                </a>
+              </li>
+              <li>
+                <a href="#" class="submenu-link flex items-center gap-2 px-4 py-2 
+                   text-gray-700 hover:bg-blue-100">
+                  <i class="ph ph-whatsapp-logo"></i>
+                  Whatsapp
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </nav>
+      </div>
+    </div>
+  </header>
 
 </body>
-
 </html>
